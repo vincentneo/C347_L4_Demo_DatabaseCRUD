@@ -1,8 +1,10 @@
 package sg.edu.rp.c347.id19007966.demodatabasecrud;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "simplenotes.db";
@@ -29,4 +31,17 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public long insertNote(String noteContent) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NOTE_CONTENT, noteContent);
+
+        long result = db.insert(TABLE_NOTE, null, values);
+
+        db.close();
+        Log.d("SQL Insert", "ID: " + result);
+
+        return result;
+    }
 }
