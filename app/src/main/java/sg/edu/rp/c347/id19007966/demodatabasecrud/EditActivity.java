@@ -38,6 +38,7 @@ public class EditActivity extends AppCompatActivity {
                 data.setNoteContent(etContent.getText().toString());
                 dbHelper.updateNote(data);
                 dbHelper.close();
+                finish();
             }
         });
 
@@ -47,6 +48,7 @@ public class EditActivity extends AppCompatActivity {
                 DBHelper dbHelper = new DBHelper(EditActivity.this);
                 dbHelper.deleteNote(data.getId());
                 dbHelper.close();
+                finish();
             }
         });
     }

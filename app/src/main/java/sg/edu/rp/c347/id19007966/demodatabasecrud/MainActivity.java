@@ -2,6 +2,7 @@ package sg.edu.rp.c347.id19007966.demodatabasecrud;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -65,6 +66,22 @@ public class MainActivity extends AppCompatActivity {
                     text += "\n";
                 }
                 tvDBContent.setText(text);
+            }
+        });
+
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // prevent crash if user click edit before any clicking of retrieve
+                if (al.isEmpty()) {
+                    DBHelper dbHelper = new DBHelper(MainActivity.this);
+                    al.clear();
+                    al.addAll(dbHelper.getAllNotes());
+                }
+                Note target = al.get(0);
+                Intent i = new Intent(MainActivity.this, EditActivity.class);
+                i.putExtra("data", target);
+                startActivity(i);
             }
         });
 
