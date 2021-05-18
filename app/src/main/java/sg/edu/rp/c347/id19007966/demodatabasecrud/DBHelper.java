@@ -58,16 +58,25 @@ public class DBHelper extends SQLiteOpenHelper {
         return result;
     }
 
-    public ArrayList<Note> getAllNotes() {
+    public ArrayList<Note> getAllNotes(String keyword) {
         ArrayList<Note> notes = new ArrayList<>();
-
+        /*
         String selectQuery = "SELECT " + COLUMN_ID
                            + ", " + COLUMN_NOTE_CONTENT
                            + " FROM " + TABLE_NOTE;
-
+        */
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.rawQuery(selectQuery, null);
+        //Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // Section F: Filter to show "hello" only.
+        String[] columns= {COLUMN_ID, COLUMN_NOTE_CONTENT};
+        String condition = COLUMN_NOTE_CONTENT + " Like ?";
+        String[] args = { "%" +  keyword + "%"};
+        Cursor cursor = db.query(TABLE_NOTE, columns, condition, args,
+                null, null, null, null);
+
+
         if (cursor.moveToFirst()) {
             do {
                 int id = cursor.getInt(0);

@@ -64,7 +64,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 DBHelper dbHelper = new DBHelper(MainActivity.this);
                 al.clear();
-                al.addAll(dbHelper.getAllNotes());
+                // Section F: The edit text will act for filtering keyword.
+                al.addAll(dbHelper.getAllNotes(etContent.getText().toString()));
                 aa.notifyDataSetChanged();
                 dbHelper.close();
 
@@ -86,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                 if (al.isEmpty()) {
                     DBHelper dbHelper = new DBHelper(MainActivity.this);
                     al.clear();
-                    al.addAll(dbHelper.getAllNotes());
+                    al.addAll(dbHelper.getAllNotes(""));
                     aa.notifyDataSetChanged();
                 }
                 Note target = al.get(0);
