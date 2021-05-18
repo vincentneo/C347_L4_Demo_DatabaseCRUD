@@ -6,8 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     TextView tvDBContent;
     EditText etContent;
     ArrayList<Note> al;
+    ArrayAdapter<Note> aa;
+    ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +38,11 @@ public class MainActivity extends AppCompatActivity {
 
         etContent = findViewById(R.id.etContent);
 
+        listView = findViewById(R.id.listView);
+
         al = new ArrayList<>();
+        aa = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, al);
+        listView.setAdapter(aa);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 DBHelper dbHelper = new DBHelper(MainActivity.this);
                 al.clear();
                 al.addAll(dbHelper.getAllNotes());
-
+                aa.notifyDataSetChanged();
                 dbHelper.close();
 
                 String text = "";
@@ -78,11 +87,22 @@ public class MainActivity extends AppCompatActivity {
                     DBHelper dbHelper = new DBHelper(MainActivity.this);
                     al.clear();
                     al.addAll(dbHelper.getAllNotes());
+                    aa.notifyDataSetChanged();
                 }
                 Note target = al.get(0);
-                Intent i = new Intent(MainActivity.this, EditActivity.class);
-                i.putExtra("data", target);
-                startActivityForResult(i, 9);
+                Intent intent = new Intent(MainActivity.this, EditActivity.class);
+                intent.putExtra("data", target);
+                startActivityForResult(intent, 9);
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Note target = al.get(i);
+                Intent intent = new Intent(MainActivity.this, EditActivity.class);
+                intent.putExtra("data", target);
+                startActivityForResult(intent, 9);
             }
         });
 

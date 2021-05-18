@@ -60,6 +60,12 @@
             android:text="Retrieve" />
     </LinearLayout>
 
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#B2EBF2" />
+
     <TextView
         android:id="@+id/tvDBContent"
         android:layout_width="match_parent"
