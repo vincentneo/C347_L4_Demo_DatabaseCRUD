@@ -40,5 +40,14 @@ public class EditActivity extends AppCompatActivity {
                 dbHelper.close();
             }
         });
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DBHelper dbHelper = new DBHelper(EditActivity.this);
+                dbHelper.deleteNote(data.getId());
+                dbHelper.close();
+            }
+        });
     }
 }
