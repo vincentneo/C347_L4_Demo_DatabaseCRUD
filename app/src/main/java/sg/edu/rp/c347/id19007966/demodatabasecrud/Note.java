@@ -1,6 +1,8 @@
 package sg.edu.rp.c347.id19007966.demodatabasecrud;
 
-public class Note {
+import java.io.Serializable;
+
+public class Note implements Serializable {
     private int id;
     private String noteContent;
 
@@ -15,6 +17,10 @@ public class Note {
 
     public String getNoteContent() {
         return noteContent;
+    }
+
+    public void setNoteContent(String noteContent) {
+        this.noteContent = noteContent;
     }
 
     @Override
