@@ -26,6 +26,16 @@ public class DBHelper extends SQLiteOpenHelper {
                 + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COLUMN_NOTE_CONTENT + " TEXT ) ";
         db.execSQL(createNoteTableSql);
+        Log.i("info", "created tables");
+
+        // Dummy records
+        for (int i = 0; i < 4; i++) {
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_NOTE_CONTENT, "Data number: " + i);
+            db.insert(TABLE_NOTE, null, values);
+        }
+
+        Log.i("info", "dummy records inserted");
     }
 
     @Override
